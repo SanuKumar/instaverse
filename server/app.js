@@ -2,20 +2,14 @@ import express from "express"
 import bodyParser from "body-parser"
 import mongoose from "mongoose"
 import cors from "cors"
+import storyRoutes from "./routes/stories.js"
 
 const app = express()
 
-app.use(bodyParser.json({
-  limit: "32mb",
-  extended: true
-}))
-
-app.use(bodyParser.urlencoded({
-  limit: "32mb",
-  extended: true
-}))
-
+app.use(bodyParser.json({ limit: "32mb", extended: true }))
+app.use(bodyParser.urlencoded({ limit: "32mb", extended: true }))
 app.use(cors())
+app.use("/stories", storyRoutes)
 
 const MONGO_URI = `mongodb+srv://instaverse:instaverse@cluster0.pqvcrqu.mongodb.net/?retryWrites=true&w=majority`
 
