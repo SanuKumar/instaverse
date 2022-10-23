@@ -1,9 +1,8 @@
 import { Router } from "express";
-
+import { getStories, createStory } from "../controllers/stories.js";
 const router = Router()
 
-router.get('/', (req, res) =>  {
-  res.send('welcome to stories')
-})
+router.get('/', getStories)
+router.post("/", createStory)
 
 export default router

@@ -3,6 +3,8 @@ import bodyParser from "body-parser"
 import mongoose from "mongoose"
 import cors from "cors"
 import storyRoutes from "./routes/stories.js"
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 const app = express()
 
@@ -11,7 +13,7 @@ app.use(bodyParser.urlencoded({ limit: "32mb", extended: true }))
 app.use(cors())
 app.use("/stories", storyRoutes)
 
-const MONGO_URI = `mongodb+srv://instaverse:instaverse@cluster0.pqvcrqu.mongodb.net/?retryWrites=true&w=majority`
+const MONGO_URI = process.env.MONGO_URI
 
 const PORT = process.env.PORT || 5001
 
