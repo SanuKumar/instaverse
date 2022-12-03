@@ -1,18 +1,25 @@
 import React from "react";
+import { Layout, Image, Typography } from "antd"
+import LOGO from "./images/Instaverse.png"
 import Home from "./components/Home"
-import Story from "./components/Story"
-import StoryForm from "./components/StoryForm"
-import StoryList from "./components/StoryList"
+import styles from "./styles"
+
+const { Title } = Typography;
+const { Header, Footer } = Layout
 
 function App() {
   return (
-    <div>
-      App
+    <Layout style={styles.layout}>
+      <Header style={styles.header}>
+        <Image style={styles.image} width="45" preview="false"
+          src={LOGO}
+        />
+        &nbsp;
+        <Title style={styles.title}>Instaverse</Title>
+      </Header>
       <Home />
-      <Story />
-      <StoryForm />
-      <StoryList />
-    </div>
+      <Footer style={styles.footer}>Sanu 2022 - Instaverse</Footer>
+    </Layout>
   );
 }
 

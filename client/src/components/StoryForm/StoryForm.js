@@ -1,8 +1,9 @@
 import React from 'react'
+import styles from "./styles"
 
 const StoryForm = () => {
   return (
-    <div>StoryForm</div>
+    <div> <h1>StoryForm</h1></div>
   )
 }
 

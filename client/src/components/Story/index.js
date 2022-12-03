@@ -1,3 +1,4 @@
 import Story from "./Story";
+import { memo } from "react"
 
-export default Story
+export default memo(Story)

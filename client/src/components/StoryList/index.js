@@ -1,3 +1,4 @@
 import StoryList from "./StoryList";
+import { memo } from "react"
 
-export default StoryList
+export default memo(StoryList)
