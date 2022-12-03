@@ -4,11 +4,9 @@ import Story from "../models.js/storyContent.js"
 const getStories = async (req, res) => {
   try {
     const story = await Story.find()
-    console.log("story")
     res.status(200).json(story)
   } catch (error) {
     res.status(404).json({ message: error.message })
-    console.log(error)
   }
 }
 
