@@ -1,19 +1,24 @@
 import React from 'react'
+import { useDispatch } from "react-redux"
 import { Card, Form, Input, Typography, Button } from "antd"
 import FileBase64 from "react-file-base64"
 import styles from "./styles"
 import e from 'cors'
+import { createStory } from '../../api'
 
 const { Title } = Typography
 
 const StoryForm = () => {
+  const dispatch = useDispatch()
   const [form] = Form.useForm()
 
-  const onSubmit = () => { }
+  const onSubmit = (formValues) => {
+    dispatch(createStory(formValues))
+  }
 
   return (
-    <Card style={styles.card} title={
-      <Title level={4} style={styles.title}>
+    <Card style={styles.formCard} title={
+      <Title level={4} style={styles.formTitle}>
 
       </Title>
     }>
@@ -29,7 +34,7 @@ const StoryForm = () => {
           <Input allowClear />
         </Form.Item>
         <Form.Item name="caption" label="Caption" rules={[{ required: true }]}>
-          <Input.TextArea allowClear autoSize={{ minRows: 2, maxRows: 6 }} /> 
+          <Input.TextArea allowClear autoSize={{ minRows: 2, maxRows: 6 }} />
         </Form.Item>
         <Form.Item name="tags" label="Tags">
           <Input.TextArea allowClear autoSize={{ minRows: 2, maxRows: 6 }} />
@@ -38,15 +43,24 @@ const StoryForm = () => {
           <FileBase64
             type="file"
             multiple={false}
-            onDone={() => {
-              form.setFields({
+            onDone={(e) => {
+              form.setFieldsValue({
                 image: e.base64
               })
             }}
           />
         </Form.Item>
-        <Form.Item name="image" label="Image" rules={[{ required: true }]}>
-          
+        <Form.Item wrapperCol={{
+          span: 616,
+          offset: 6
+        }}>
+          <Button
+            type="primary"
+            block
+            htmlType='submit'
+          >
+            Share
+          </Button>
         </Form.Item>
       </Form>
     </Card>

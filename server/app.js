@@ -4,17 +4,17 @@ import mongoose from "mongoose"
 import cors from "cors"
 import storyRoutes from "./routes/stories.js"
 import * as dotenv from 'dotenv'
-dotenv.config()
 
 const app = express()
+dotenv.config()
 
 app.use(bodyParser.json({ limit: "32mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "32mb", extended: true }))
 app.use(cors())
+
 app.use("/stories", storyRoutes)
 
 const MONGO_URI = process.env.MONGO_URI
-
 const PORT = process.env.PORT || 5001
 
 const connectDB = async () => {
@@ -30,3 +30,4 @@ connectDB()
 
 mongoose.connection.on("open", () => console.log("Connection to DB has been established successfully"))
 mongoose.connection.on("error", (err) => console.log(err))
+

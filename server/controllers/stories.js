@@ -12,7 +12,7 @@ const getStories = async (req, res) => {
 
 const createStory = async (req, res) => {
   const body = req.body
-  const newStory = newStory({
+  const newStory = new Story({
     ...body
   })
   try {
