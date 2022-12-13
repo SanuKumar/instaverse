@@ -17,13 +17,15 @@ const createStory = async (req, res) => {
   })
   try {
     await newStory.save()
+    console.log(newStory)
     res.status(201).json(newStory)
   } catch (error) {
+    console.log(error)
     res.status(409).json({ message: error.message })
   }
 }
 
-const updateStory = async () => {
+const updateStory = async (req, res) => {
   const { id: _id } = req.params
 
   const story = req.body

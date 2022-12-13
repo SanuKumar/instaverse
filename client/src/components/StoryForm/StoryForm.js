@@ -1,25 +1,38 @@
-import React from 'react'
-import { useDispatch } from "react-redux"
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux"
 import { Card, Form, Input, Typography, Button } from "antd"
 import FileBase64 from "react-file-base64"
 import styles from "./styles"
-import e from 'cors'
-import { createStory } from '../../api'
+import { createStory, updateStory } from '../../actions/stories'
 
 const { Title } = Typography
 
-const StoryForm = () => {
+const StoryForm = ({ selectedId, setSelectedId }) => {
+  const story = useSelector((state) => selectedId ? state.stories.find((story) => story._id === selectedId) : null)
+  console.log(story)
   const dispatch = useDispatch()
   const [form] = Form.useForm()
 
   const onSubmit = (formValues) => {
-    dispatch(createStory(formValues))
+    selectedId ? dispatch(updateStory(selectedId, formValues)) :
+      dispatch(createStory(formValues))
+  }
+
+  useEffect(() => {
+    if (story) {
+      form.setFieldsValue(story)
+    }
+  }, [story, form])
+
+  const reset = () => {
+    form.setFieldValue()
+    setSelectedId(null)
   }
 
   return (
     <Card style={styles.formCard} title={
       <Title level={4} style={styles.formTitle}>
-
+        {selectedId ? "Editing" : "Share"} a story
       </Title>
     }>
       <Form
@@ -50,10 +63,11 @@ const StoryForm = () => {
             }}
           />
         </Form.Item>
-        <Form.Item wrapperCol={{
-          span: 616,
-          offset: 6
-        }}>
+        <Form.Item
+          wrapperCol={{
+            span: 616,
+            offset: 6
+          }}>
           <Button
             type="primary"
             block
@@ -62,6 +76,23 @@ const StoryForm = () => {
             Share
           </Button>
         </Form.Item>
+
+        {!selectedId ? null : <Form.Item
+          wrapperCol={{
+            span: 616,
+            offset: 6
+          }}>
+          <Button
+            type="primary"
+            block
+            htmlType='button'
+            danger
+            onClick={reset}
+          >
+            Discard
+          </Button>
+        </Form.Item>}
+
       </Form>
     </Card>
   )
