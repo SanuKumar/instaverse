@@ -18,7 +18,7 @@ function App() {
         <Title style={styles.title}>Instaverse</Title>
       </Header>
       <Home />
-      <Footer style={styles.footer}>Sanu 2022 - Instaverse</Footer>
+      <Footer style={styles.footer}>Sanu@2022 - Instaverse</Footer>
     </Layout>
   );
 }

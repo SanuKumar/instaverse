@@ -1,5 +1,5 @@
-import mongoose from "mongoose"
 import Story from "../models.js/storyContent.js"
+import mongoose from "mongoose"
 
 const getStories = async (req, res) => {
   try {
@@ -23,4 +23,18 @@ const createStory = async (req, res) => {
   }
 }
 
-export { getStories, createStory }
+const updateStory = async () => {
+  const { id: _id } = req.params
+
+  const story = req.body
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) {
+    return res.status(404).send("This id doesn't belong to any story")
+  }
+
+  const updatedStory = await Story.findByIdAndUpdate(_id, story, { new: true })
+
+  res.json(updatedStory)
+}
+
+export { getStories, createStory, updateStory }
