@@ -9,13 +9,20 @@ const { Title } = Typography
 
 const StoryForm = ({ selectedId, setSelectedId }) => {
   const story = useSelector((state) => selectedId ? state.stories.find((story) => story._id === selectedId) : null)
-  console.log(story)
   const dispatch = useDispatch()
   const [form] = Form.useForm()
 
+  const reset = () => {
+    form.resetFields()
+    setSelectedId(null)
+  }
+
   const onSubmit = (formValues) => {
-    selectedId ? dispatch(updateStory(selectedId, formValues)) :
+    selectedId ?
+      dispatch(updateStory(selectedId, formValues)) :
       dispatch(createStory(formValues))
+
+    reset()
   }
 
   useEffect(() => {
@@ -24,10 +31,7 @@ const StoryForm = ({ selectedId, setSelectedId }) => {
     }
   }, [story, form])
 
-  const reset = () => {
-    form.setFieldValue()
-    setSelectedId(null)
-  }
+
 
   return (
     <Card style={styles.formCard} title={

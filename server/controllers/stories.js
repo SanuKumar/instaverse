@@ -39,4 +39,16 @@ const updateStory = async (req, res) => {
   res.json(updatedStory)
 }
 
-export { getStories, createStory, updateStory }
+const deleteStory = async (req, res) => {
+  const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send("This id doesn't belong to any story")
+  }
+  await Story.findByIdAndRemove(id)
+
+  res.json({ message: "Story deleted successfully" })
+}
+
+
+export { getStories, createStory, updateStory, deleteStory }
