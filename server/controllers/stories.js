@@ -17,7 +17,6 @@ const createStory = async (req, res) => {
   })
   try {
     await newStory.save()
-    console.log(newStory)
     res.status(201).json(newStory)
   } catch (error) {
     console.log(error)
@@ -51,4 +50,18 @@ const deleteStory = async (req, res) => {
 }
 
 
-export { getStories, createStory, updateStory, deleteStory }
+const likeStory = async (req, res) => {
+  const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send("This id doesn't belong to any story")
+  }
+  const story = await Story.findById(id)
+
+  const updatedStory = await Story.findByIdAndUpdate(id, { likes: story.likes + 1 }, { new: true })
+
+  res.json(updatedStory)
+}
+
+
+export { getStories, createStory, updateStory, deleteStory, likeStory }
