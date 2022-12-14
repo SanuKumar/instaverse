@@ -53,12 +53,22 @@ const deleteStory = async (req, res) => {
 const likeStory = async (req, res) => {
   const { id } = req.params
 
+  if (!req.userId) return res.json({ message: "Unauthenticated User" })
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).send("This id doesn't belong to any story")
   }
   const story = await Story.findById(id)
 
-  const updatedStory = await Story.findByIdAndUpdate(id, { likes: story.likes + 1 }, { new: true })
+  const index = story.likes.findIndex(id => id === String(req.userId))
+
+  if (index === -1) {
+    story.likes.push(req.uesrId)
+  } else {
+    story.likes = story.likes.filter(id => id !== String(req.userId))
+  }
+
+  const updatedStory = await Story.findByIdAndUpdate(id, story, { new: true })
 
   res.json(updatedStory)
 }
