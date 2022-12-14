@@ -1,10 +1,11 @@
 import * as api from "../api"
+import { FETCH_ALL_STORIES, CREATE_STORY, UPDATE_STORY, DELETE_STORY, LIKE_STORY } from "../constants/actionTypes"
 
 export const getStories = () => async (dispatch) => {
   try {
     const { data } = await api.fetchStories()
     dispatch({
-      type: "FETCH_ALL_STORIES",
+      type: FETCH_ALL_STORIES,
       payload: data
     })
   } catch (error) {
@@ -16,7 +17,7 @@ export const createStory = (story) => async (dispatch) => {
   try {
     const { data } = await api.createStory(story)
     dispatch({
-      type: "CREATE_STORY",
+      type: CREATE_STORY,
       payload: data
     })
   } catch (error) {
@@ -29,7 +30,7 @@ export const updateStory = (id, story) => async (dispatch) => {
     const { data } = await api.updateStory(id, story)
 
     dispatch({
-      type: "UPDATE_STORY",
+      type: UPDATE_STORY,
       payload: data
     })
   } catch (error) {
@@ -42,7 +43,7 @@ export const deleteStory = (id) => async (dispatch) => {
     await api.deleteStory(id)
 
     dispatch({
-      type: "DELETE_STORY",
+      type: DELETE_STORY,
       payload: id
     })
   } catch (error) {
@@ -56,7 +57,7 @@ export const likeStory = (id) => async (dispatch) => {
     const { data } = await api.likeStory(id)
 
     dispatch({
-      type: "LIKE_STORY",
+      type: LIKE_STORY,
       payload: data
     })
   } catch (error) {
