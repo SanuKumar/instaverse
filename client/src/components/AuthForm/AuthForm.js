@@ -1,40 +1,44 @@
-import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { Form, Input, Button, Card, Layout, Typography } from "antd"
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
-import styles from "./styles"
-import { login, signup } from "../../actions/authentication"
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Form, Input, Button, Card, Layout, Typography } from "antd";
+import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import { useDispatch } from 'react-redux';
+import { login, signup } from '../../actions/authentication';
 
-const { Title } = Typography
+import styles from './styles';
 
-const AuthForm = () => {
-  const user = null
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+const { Title } = Typography;
 
-  const [form] = Form.useForm()
-  const [isLogin, setIsLogin] = useState(true)
+function AuthForm() {
+  const user = null;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [form] = Form.useForm();
+  const [isLogin, setIsLogin] = useState(true);
 
   const onSubmit = (formValues) => {
     if (isLogin) {
-      dispatch(login(formValues, navigate))
+      dispatch(login(formValues, navigate));
     } else {
-      dispatch(signup(formValues, navigate))
+      dispatch(signup(formValues, navigate));
     }
-  }
+  };
 
   const switchMode = () => {
-    setIsLogin(prevIsLogin => !prevIsLogin)
-  }
+    setIsLogin(prevIsLogin => !prevIsLogin);
+  };
 
   return (
     <Layout style={styles.container}>
-      <Card style={styles.card} title={
-        <Title level={4} style={{ textAlign: "center" }}>
-          {isLogin ? "Login to" : "Join"} Instaverse
-        </Title>
-      }>
+      <Card
+        style={styles.card}
+        title={
+          <Title level={4} style={{ textAlign: "center" }}>
+            {isLogin ? "Login to" : "Join"} Instaverse
+          </Title>
+        }
+      >
         <Form
           name="authform"
           form={form}
@@ -97,8 +101,8 @@ const AuthForm = () => {
               {isLogin ? "Log In" : "Join"}
             </Button>
             <span style={{ margin: "0 10px 0px 20px" }}>Or</span>
-            <Button type="link" onClick={switchMode}>
-              {isLogin ? "Register now" : "have an account"}
+            <Button type='link' onClick={switchMode}>
+              {isLogin ? "Register now" : "have an account?"}
             </Button>
           </Form.Item>
         </Form>

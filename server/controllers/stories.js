@@ -12,9 +12,13 @@ const getStories = async (req, res) => {
 
 const createStory = async (req, res) => {
   const body = req.body
+
   const newStory = new Story({
-    ...body
+    ...body,
+    userId: req.userId,
+    postDate: new Date().toISOString()
   })
+
   try {
     await newStory.save()
     res.status(201).json(newStory)
@@ -51,27 +55,29 @@ const deleteStory = async (req, res) => {
 
 
 const likeStory = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
 
-  if (!req.userId) return res.json({ message: "Unauthenticated User" })
+  if (!req.userId) return res.json({ message: "Unauthenticated User" });
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).send("This id doesn't belong to any story")
+    return res.status(404).send("This id doesnt belong to any story");
   }
-  const story = await Story.findById(id)
 
-  const index = story.likes.findIndex(id => id === String(req.userId))
+  const story = await Story.findById(id);
 
-  if (index === -1) {
-    story.likes.push(req.uesrId)
+  const index = story.likes.findIndex(id => id === String(req.userId));
+
+  if (index === -1) { // if user has not liked the story
+    story.likes.push(req.userId);
   } else {
-    story.likes = story.likes.filter(id => id !== String(req.userId))
+    story.likes = story.likes.filter(id => id !== String(req.userId));
   }
 
-  const updatedStory = await Story.findByIdAndUpdate(id, story, { new: true })
+  const updatedStory = await Story.findByIdAndUpdate(id, story, { new: true });
 
-  res.json(updatedStory)
+  res.json(updatedStory);
 }
+
 
 
 export { getStories, createStory, updateStory, deleteStory, likeStory }
