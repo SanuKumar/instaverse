@@ -9,6 +9,6 @@ router.get('/', getStories)
 router.post("/", authentication, createStory)
 router.patch("/:id", authentication, updateStory)
 router.delete("/:id", authentication, deleteStory)
-router.patch("/:id/likesStory", authentication, likeStory)
+router.patch("/:id/likeStory", authentication, likeStory)
 
 export default router

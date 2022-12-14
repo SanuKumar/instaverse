@@ -20,7 +20,7 @@ const AuthForm = () => {
     if (isLogin) {
       dispatch(login(formValues, navigate))
     } else {
-      dispatch(formValues, navigate)
+      dispatch(signup(formValues, navigate))
     }
   }
 

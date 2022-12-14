@@ -1,35 +1,32 @@
-import * as api from "../api"
+import * as api from "../api";
 import {
   AUTHENTICATION
-} from "../constants/actionTypes"
+} from "../constants/actionTypes";
 
-const signUp = (formValues, navigate) => async dispatch => {
+const signup = (formValues, navigate) => async dispatch => {
   try {
     const { data } = await api.signup(formValues);
-
     dispatch({
       type: AUTHENTICATION,
-      payload: data
-    })
-    navigate("/")
+      data: data
+    });
+    navigate("/");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const login = (formValues, navigate) => async dispatch => {
   try {
     const { data } = await api.login(formValues);
-
     dispatch({
       type: AUTHENTICATION,
-      payload: data
-    })
-    navigate("/")
+      data: data
+    });
+    navigate("/");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-
-export { login, signUp }
+export { signup, login };

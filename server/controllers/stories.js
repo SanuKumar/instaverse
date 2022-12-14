@@ -1,4 +1,4 @@
-import Story from "../models.js/storyContent.js"
+import Story from "../models/storyContent.js"
 import mongoose from "mongoose"
 
 const getStories = async (req, res) => {
